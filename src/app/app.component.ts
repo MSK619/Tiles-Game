@@ -20,12 +20,10 @@ export class AppComponent implements OnInit {
   }
 
   populateData() {
-
     for (let r = 0; r < this.rows; r++) {
       console.log(r);
-      console.log(r);
-      console.log(r);
+      console.log(r, ' sajid ali');
     }
-    console.log('fdsfs');
+    console.log('fdsfs', this.cols);
   }
 }
