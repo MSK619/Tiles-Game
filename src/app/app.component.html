@@ -1,27 +1,28 @@
 <div class="game-container">
-  <div class="score">Score: 333</div>
-  <div class="grid">
-    <div
-      *ngFor="let val of boxes; let i = index"
-      class="row"
-    >
-      {{i}}
-    </div>
-  </div>
-</div>
-<!-- <div class="game-container">
-  <div class="score">Score: {{ score }}</div>
-  <div class="grid">
-    <div
-      *ngFor="let row of tiles; let i = index"
-      class="row"
-    >
+  <div class="time-left">Time Left : {{timeLeft}} Sec</div>
+
+  <ng-container *ngIf="timeLeft > 0; else gameOver">
+    <div class="grid">
       <div
-        *ngFor="let tile of row; let j = index"
-        class="tile"
-        [class.highlighted]="tile"
-        (click)="onTileClick(i, j)"
-      ></div>
+        *ngFor="let row of boxes; let i = index"
+        class="row"
+      >
+  
+      <div
+          *ngFor="let tile of row; let j = index"
+          class="tile"
+          [class.highlighted]="tile?.isSelected"
+          (click)="onTileClick( i , j)"
+        ></div>
+  
+      </div>
     </div>
-  </div>
-</div> -->
+  </ng-container>
+  <ng-template #gameOver>
+    <div class="score">Game Over</div>
+  </ng-template>
+
+  <div class="score">Score: {{score}}</div>
+  
+</div>
+

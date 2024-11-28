@@ -7,6 +7,11 @@
     font-size: 24px;
     margin-bottom: 20px;
   }
+
+  .time-left {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
   
   .grid {
     display: flex;
@@ -31,9 +36,5 @@
   
   .tile.highlighted {
     background-color: #4CAF50;
-  }
-  
-  .tile:hover {
-    background-color: #b6d7a8;
   }
   

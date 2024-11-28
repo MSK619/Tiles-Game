@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { getRandomInt } from './common';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  rows = 4;
-  cols = 4;
+  rowCnt = 4;
+  colCnt = 4;
 
-  boxes = [];
+  boxes:any = [];
+  boxesId = 1;
 
-  boxesId = 0;
+  startId=1;
+  endId = this.rowCnt * this.colCnt;
+
+  score = 0;
+  currentSelectedTile = 0;
+
+  tilesInterval;
+
+  timeLeft = 10;
+  timeLeftInterval:any;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -20,10 +32,54 @@ export class AppComponent implements OnInit {
   }
 
   populateData() {
-    for (let r = 0; r < this.rows; r++) {
-      console.log(r);
-      console.log(r, ' sajid ali');
+    for (let r = 0; r < this.rowCnt; r++) {
+      let ot = [];
+      for(let j =0;j< this.colCnt; j++ ){
+        ot.push({
+          id: this.boxesId,
+          isSelected: false
+        })
+        this.boxesId++;
+      }
+      this.boxes.push(ot);
     }
-    console.log('fdsfs', this.cols);
+
+
+    this.timeLeftInterval = setInterval(()=> {
+      if(this.timeLeft > 0){ 
+        this.timeLeft = this.timeLeft - 1;
+      }else{
+        clearInterval(this.timeLeftInterval)
+      }
+    },1000);
+
+    this.generateTilesSelection();
+    this.tilesInterval = setInterval(()=>{
+      this.generateTilesSelection();
+    },2000)
+  }
+
+  generateTilesSelection() {
+    this.currentSelectedTile = getRandomInt(this.startId, this.endId);
+  
+    for (let r = 0; r < this.rowCnt; r++) {
+      for (let c = 0; c < this.colCnt; c++) {
+        if (this.boxes[r][c].id === this.currentSelectedTile) {
+          this.boxes[r][c].isSelected = true;
+          setTimeout(() => {
+            this.boxes[r][c].isSelected = false;
+          }, 2000);
+          break; 
+        }
+      }
+    }  
+  }
+  
+  onTileClick( i,j){
+    if (this.boxes[i][j].id === this.currentSelectedTile) {
+      this.score++;
+      this.boxes[i][j].isSelected = false;
+      this.currentSelectedTile = null;
+    }
   }
 }
