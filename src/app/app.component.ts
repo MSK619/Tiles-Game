@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
   tilesInterval;
 
-  timeLeft = 10;
+  timeLeft = 60;
   timeLeftInterval:any;
 
   constructor() { }
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
     this.generateTilesSelection();
     this.tilesInterval = setInterval(()=>{
       this.generateTilesSelection();
-    },2000)
+    },1000)
   }
 
   generateTilesSelection() {
@@ -81,5 +81,9 @@ export class AppComponent implements OnInit {
       this.boxes[i][j].isSelected = false;
       this.currentSelectedTile = null;
     }
+  }
+
+  restartGame(){
+    location.reload();
   }
 }
